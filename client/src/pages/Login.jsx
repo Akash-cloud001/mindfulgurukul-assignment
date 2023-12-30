@@ -1,0 +1,46 @@
+import React, { useState } from 'react'
+import { NavLink } from 'react-router-dom';
+const Login = () => {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+  return (
+    <>
+    <form 
+        action="" 
+        className='w-full sm:w-full h-screen flex flex-col items-center justify-center gap-4 px-4'
+        >   
+        <header className='text-xl mb-4'>Sign In</header>
+        <div className='input-container'>
+            <label htmlFor="name">Username</label>
+            <input 
+            type="email" 
+            value={email}
+            onChange={(e)=>setEmail(e.target.value)}
+            className='input-style' 
+            />
+        </div>
+        <div className='input-container'>
+            <label htmlFor="name">Password</label>
+            <input 
+            type="password" 
+            value={password}
+            onChange={(e)=>setPassword(e.target.value)}
+            className='input-style' 
+            />
+        </div>
+        <div className='w-full sm:w-1/2 md:w-1/3 lg:w-1/3 gap-2 flex items-center justify-around mt-4'>
+            <NavLink to={'/signup'} type='submit' className='btn bg-white text-blue-600'>
+                Create account
+            </NavLink>
+            <button className='btn bg-blue-600 '>
+                Log in
+            </button>
+            
+        </div>
+    </form>
+    </>
+    
+  )
+}
+
+export default Login;
