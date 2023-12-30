@@ -24,10 +24,7 @@ mongoose
     })
 
 // Route
-app.get('/', (req, res)=>{
-    console.log(req);
-    res.status(201).send("welcome to backend");
-})
+
 app.post('/api/signup', async (req,res)=>{
     try {
         if(!req.body.name ||
@@ -53,7 +50,7 @@ app.post('/api/signup', async (req,res)=>{
             state: req.body.state,
             hearAboutUs: req.body.hearAboutUs
         });
-        return res.status(201);
+        return res.json({status:'ok'})
     } catch (error) {
         res.status(500).send({message:error.message});
     }
@@ -79,5 +76,34 @@ app.post('/api/signin', async(req, res)=>{
         }
     } catch (error) {
         
+    }
+})
+
+app.get('/api/data', async(req,res)=>{
+    const token = req.headers['x-access-token'];
+    try {
+        const decoded = jwt.verify(token, 'alpha@123'); // it's async it throws error if somthing goes south
+        const email = decoded.email
+        const user = await User.findOne({email:email})
+
+        return res.json({status:'ok', data: user.data})
+    } catch (error) {
+        return res.json({status: 'error', error:'invalid token'})
+    }
+})
+
+app.post('/api/data', async(req,res)=>{
+    const token = req.headers['x-access-token'];
+    try {
+        const decoded = jwt.verify(token, 'alpha@123'); // it's async it throws error if somthing goes south
+        const email = decoded.email
+        await User.updateOne(
+            {email:email},
+            {$set:{data: [...data, req.body.data]}}
+            )
+
+        return res.json({status:'ok'})
+    } catch (error) {
+        return res.json({status: 'error', error:'invalid token'})
     }
 })

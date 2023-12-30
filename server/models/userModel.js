@@ -34,6 +34,10 @@ const userSchema = mongoose.Schema(
         password:{
             type:String,
             required:true
+        },
+        data:{
+            type:Array,
+            required:false
         }
     },
     {

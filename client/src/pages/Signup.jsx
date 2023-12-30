@@ -1,4 +1,5 @@
 import React,{useState} from 'react'
+import { useNavigate } from 'react-router-dom';
 
 const Signup = () => {
   const [name, setName] = useState('');
@@ -10,6 +11,8 @@ const Signup = () => {
   const [state, setState] = useState('');
   const [password, setPassword] = useState('');
   const [filteredState, setFilteredState] = useState('');
+
+  const navigate = useNavigate();
 
   let stateName = [ "Andhra Pradesh",
                 "Arunachal Pradesh",
@@ -85,6 +88,9 @@ const Signup = () => {
       })
     })
     const data = await res.json();
+    if(data.status === 'ok'){
+      navigate('/');
+    }
   }
 
   return (
