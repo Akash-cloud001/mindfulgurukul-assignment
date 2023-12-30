@@ -1,13 +1,38 @@
 import React, { useState } from 'react'
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate,  } from 'react-router-dom';
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+
+    const navigate = useNavigate();
+
+    async function handleUserLogin(event){
+        event.preventDefault();
+        const res = await fetch("http://localhost:5000/api/signin", {
+            method:'POST',
+            headers:{
+                'Content-type':'application/json'
+            },
+            body: JSON.stringify({
+                email,
+                password,
+              })
+        })
+        const data = await res.json();
+        if(data.user){
+            alert('Login Successful');
+            navigate(`/dashboard/${data.user}`);
+        }else{
+            alert('Please check your credentials')
+        }
+    }
+
+
   return (
     <>
     <form 
-        action="" 
-        className='w-full sm:w-full h-screen flex flex-col items-center justify-center gap-4 px-4'
+        onSubmit={handleUserLogin} 
+        className='w-full sm:w-full height-dvh flex flex-col items-center justify-center gap-4 px-4'
         >   
         <header className='text-xl mb-4'>Sign In</header>
         <div className='input-container'>

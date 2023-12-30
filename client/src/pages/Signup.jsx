@@ -1,5 +1,4 @@
 import React,{useState} from 'react'
-import { NavLink } from 'react-router-dom';
 
 const Signup = () => {
   const [name, setName] = useState('');
@@ -10,6 +9,7 @@ const Signup = () => {
   const [city, setCity] = useState('');
   const [state, setState] = useState('');
   const [password, setPassword] = useState('');
+  const [filteredState, setFilteredState] = useState('');
 
   let stateName = [ "Andhra Pradesh",
                 "Arunachal Pradesh",
@@ -48,12 +48,11 @@ const Signup = () => {
                 "Lakshadweep",
                 "Puducherry"]
   stateName = stateName.map((ele)=>{return ele.toLowerCase()});
-  const staticState = ["Gujarat", "Maharastra", "Karnataka"];
-  const [filteredState, setFilteredState] = useState('');
+
 
   const handlefilter = (e)=>{
-    setFilteredState(e.target.value);
-    setState(e.target.value);
+    setFilteredState(e.target.value.toLowerCase());
+    setState(e.target.value.toLowerCase());
   }
   const handleStateSelection = (ele)=>{
     setState(ele);
@@ -66,11 +65,33 @@ const Signup = () => {
     })
   }
 
+  async function registerUser(event){
+    event.preventDefault();
+
+    const res = await fetch('http://localhost:5000/api/signup', {
+      method:'POST',
+      headers:{
+        'Content-type':'application/json'
+      },
+      body: JSON.stringify({
+        name,
+        email,
+        password,
+        phone,
+        gender,
+        city,
+        state,
+        hearAboutUs:ques
+      })
+    })
+    const data = await res.json();
+  }
+
   return (
     <>
       <form 
-        action="" 
-        className='w-full sm:w-full h-max flex flex-col items-center justify-center gap-4 px-4'
+        onSubmit={registerUser} 
+        className='w-full sm:w-full h-max flex flex-col items-center justify-center gap-4 px-4 py-4'
         >   
         <header className='text-xl mb-4'>Sign Up</header>
 
@@ -83,6 +104,7 @@ const Signup = () => {
             value={name}
             onChange={(e)=>setName(e.target.value)}
             className='input-style' 
+            required
             />
         </div>
 
@@ -95,6 +117,7 @@ const Signup = () => {
             value={email}
             onChange={(e)=>setEmail(e.target.value)}
             className='input-style' 
+            required
             />
         </div>
 
@@ -107,6 +130,7 @@ const Signup = () => {
               value={phone}
               onChange={(e)=>setPhone(e.target.value)}
               className='input-style' 
+              required
             />
         </div>
 
@@ -118,6 +142,7 @@ const Signup = () => {
             value={password}
             onChange={(e)=>setPassword(e.target.value)}
             className='input-style' 
+            required
             />
         </div>
 
@@ -131,6 +156,7 @@ const Signup = () => {
                   value='male'
                   onChange={(e)=>setGender(e.target.value)}
                   className='mr-2'
+                  required
                 />
                 <label htmlFor="male">Male</label>
                 <br />
@@ -141,6 +167,7 @@ const Signup = () => {
                   value='female'
                   onChange={(e)=>setGender(e.target.value)}
                   className='mr-2'
+                  required
                 />
                 <label htmlFor="female">Female</label>
                 <br />
@@ -151,6 +178,7 @@ const Signup = () => {
                   value='others'
                   onChange={(e)=>setGender(e.target.value)}
                   className='mr-2'
+                  required
                 />
                 <label htmlFor="others">Others</label>
                 <br />
@@ -174,7 +202,7 @@ const Signup = () => {
             <label htmlFor="job-portal">Job Portal</label>
             <br />
 
-            <input type="checkbox" id='others' name='others' value='others' className='mr-2' onChange={e=>handleQuestion(e)}/>
+            <input type="checkbox" id='others' name='others' value='others' className='mr-2' onChange={e=>handleQuestion(e)} required/>
             <label htmlFor="others">Others</label>
             <br />
           </div>
@@ -183,8 +211,8 @@ const Signup = () => {
 {/* City */}
         <div className='input-container'>
           <label htmlFor="city">City</label>
-          <select name="city" id="city" className='input-style' onChange={(e)=>setCity(e.target.value)} required>
-            <option defaultValue value='' className='hidden'></option>
+          <select name="city" id="city" value={city} className='input-style' onChange={(e)=>setCity(e.target.value)} required>
+            <option value="" disabled ></option>
             <option value="mumbai">Mumbai</option>
             <option value="pune">Pune</option>
             <option value="ahmedabad">Ahmedabad</option>
@@ -193,19 +221,26 @@ const Signup = () => {
 
 
 {/* State */}
-        <div className='input-container'>
+        <div className='input-container items-start'>
           <label htmlFor="state">State</label>
-          <div className='input-style px-0 py-0 h-max relative'>
+          <div className='bg-white w-4/6 text-base text-gray-700 rounded-sm px-0 py-0 h-max relative'>
             
-            <input type="text" id='state' value={state} onChange={(e)=>handlefilter(e)} className='bg-white w-full text-base px-4 py-1 text-gray-700 rounded-sm'/>
+            <input 
+              type="text" 
+              id='state' 
+              value={state} 
+              onChange={(e)=>handlefilter(e)} 
+              className='bg-white w-full text-base px-4 py-1 text-gray-700 rounded-sm capitalize' 
+              required
+            />
             
-            {filteredState && <ul className='absolute max-h-40 overflow-y-scroll mt-1'>
+            {filteredState && <ul className='max-h-40 overflow-y-scroll mt-1'>
               { stateName.map((ele)=>{
                 if(ele.includes(state)){
                   return <li
                           key={ele}
-                          className='text-base w-full bg-white border border-b-gray-200 px-4 cursor-pointer capitalize'
-                           onClick={()=>handleStateSelection(ele)}>{ele}
+                          className='text-base h-auto w-full bg-white border border-b-gray-200 px-4 cursor-pointer capitalize'
+                          onClick={()=>handleStateSelection(ele)}>{ele}
                           </li>
                 }
               })}
