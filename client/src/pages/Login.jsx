@@ -55,12 +55,12 @@ const Login = () => {
             />
         </div>
         <div className='w-full sm:w-1/2 md:w-1/3 lg:w-1/3 gap-2 flex items-center justify-around mt-4'>
-            <NavLink to={'/signup'} type='submit' className='btn bg-white text-blue-600'>
-                Create account
-            </NavLink>
             <button className='btn bg-blue-600 '>
                 Log in
             </button>
+            <NavLink to={'/signup'} type='submit' className='btn bg-white text-blue-600'>
+                Create account
+            </NavLink>
             
         </div>
     </form>

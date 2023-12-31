@@ -11,7 +11,7 @@ const Navbar = () => {
         <h3 className='font-bold '>LOGO</h3>
 
         {/* Need to show the form if only user is logged in */}
-        <form 
+        {localStorage.getItem('token') !== null &&<form 
         onSubmit={handleSearch} 
         action="" 
         className='w-4/6 sm:w-1/3 flex items-end justify-end gap-2'
@@ -27,7 +27,7 @@ const Navbar = () => {
                 search
             </span>
             </button>
-        </form>
+        </form>}
     </div>
   )
 }
