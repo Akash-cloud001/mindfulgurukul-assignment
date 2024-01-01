@@ -7,6 +7,9 @@ import jwt from 'jsonwebtoken';
 const app = express();
 
 // middleware
+const corsOptions={
+    origin:"https://mindful-mern-app.onrender.com/"
+}
 app.use(cors());
 app.use(express.json());
 
