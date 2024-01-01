@@ -14,7 +14,7 @@ const Navbar = () => {
         navigate('/');
     }
   return (
-    <div className='h-12 w-full flex items-center justify-between px-4 bg-blue-600'>
+    <div className='h-12 w-full flex items-center justify-between px-2 overflow-hidden bg-blue-600'>
         <h3 className='font-bold '>LOGO</h3>
 
         {/* Need to show the form if only user is logged in */}
@@ -23,7 +23,7 @@ const Navbar = () => {
             <form 
             onSubmit={handleSearch} 
             action="" 
-            className='w-4/6 sm:w-1/3 flex items-end justify-end gap-2'
+            className='w-4/6 sm:w-1/3 flex items-center justify-center gap-2'
             >
                 <input 
                 type="text" 
