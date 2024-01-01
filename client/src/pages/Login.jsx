@@ -33,7 +33,7 @@ const Login = () => {
     <>
     <form 
         onSubmit={handleUserLogin} 
-        className='w-full sm:w-full height-dvh flex flex-col items-center justify-center gap-4 px-4'
+        className='w-full sm:w-full h-custom flex flex-col items-center justify-center gap-4 px-4'
         >   
         <header className='text-xl mb-4'>Sign In</header>
         <div className='input-container'>

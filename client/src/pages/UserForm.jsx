@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useEffect, useState} from 'react'
 import { v4 as uuidv4 } from 'uuid';
 
 const UserForm = ({addUser, setAddUser, userData, setUserData}) => {
@@ -13,7 +13,7 @@ const UserForm = ({addUser, setAddUser, userData, setUserData}) => {
         setEmail('');
         setAddUser(false);
     }
-    const handleNewUserData = (e)=>{
+    async function handleNewUserData(e){
         e.preventDefault();
         const newUser = {
             name,
@@ -21,15 +21,25 @@ const UserForm = ({addUser, setAddUser, userData, setUserData}) => {
             phone,
             id: uuidv4(),
         }
-        console.log(newUser)
         if(!userData){
             setUserData([newUser])
         }else{
             setUserData(prev=>[...prev, newUser])
         }
+        const res = await fetch("http://localhost:5000/api/data",{
+                method:"POST",
+                headers:{
+                    'x-access-token':localStorage.getItem('token'),
+                    'Content-type':'application/json'
+                },
+                body:JSON.stringify({
+                    data: newUser
+                })
+            });
+            const data =await res.json();
         handleCancel(e);
-        // pass this to dashboard 
     }
+
   return (
     <div className='absolute h-custom w-full backdrop-blur-lg flex justify-center items-center z-index inset-0'>
                 <button 

@@ -85,7 +85,7 @@ app.get('/api/data', async(req,res)=>{
         const decoded = jwt.verify(token, 'alpha@123'); // it's async it throws error if somthing goes south
         const email = decoded.email
         const user = await User.findOne({email:email})
-
+        console.log("get data ",user.data);
         return res.json({status:'ok', data: user.data})
     } catch (error) {
         return res.json({status: 'error', error:'invalid token'})
@@ -97,13 +97,46 @@ app.post('/api/data', async(req,res)=>{
     try {
         const decoded = jwt.verify(token, 'alpha@123'); // it's async it throws error if somthing goes south
         const email = decoded.email
-        await User.updateOne(
-            {email:email},
-            {$set:{data: [...data, req.body.data]}}
-            )
-
+        const user = await User.findOne({email});
+        if(user){
+            user.data.push(req.body.data);
+            await user.save();
+        }else{
+            return res.json({status:'error', error:'User Not Found'})
+        }
         return res.json({status:'ok'})
     } catch (error) {
         return res.json({status: 'error', error:'invalid token'})
     }
 })
+
+
+// app.post('/api/user/update',async(req,res)=>{
+//     const token = req.headers['x-access-token'];
+//     const decoded = jwt.verify(token, 'alpha@123'); // it's async it throws error if somthing goes south
+//         const decodedEmail = decoded.email
+//     const {userId, name, email , phone} = req.body;
+//     try {
+//         const decoded = jwt.verify(token, 'alpha@123'); // it's async it throws error if somthing goes south
+
+//             const result = User.updateOne(
+//                 {
+//                     email:decodedEmail, 'data.id': userId
+//                 },{
+//                     $set:{'data.$.name':name,'data.$.email':email, 'data.$.phone':phone}
+//                 }
+//             );
+//             if (result.nModified === 1) {
+//                 return res.status(200).json({ message: 'Object updated successfully' });
+//             }else if(result.nModified === 0){
+//                 return res.status(404).json({ message: 'Object not found' });
+//             } 
+//             else {
+//               return res.status(404).json({ message: 'Object not found or not updated' });
+//             }
+//             }
+//      catch (error) {
+//         console.error(error);
+//         return res.status(500).json({ message: 'Internal Server Error' });
+//     }
+// })
