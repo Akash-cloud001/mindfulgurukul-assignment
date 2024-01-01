@@ -1,7 +1,7 @@
 import React, { Suspense, useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import UserInfo from './UserInfo';
-import UserForm from './userForm';
+import UserForm from './UserForm';
 import Error from './Error';
 import { UserContext } from '../contexts/UserContext';
 import Navbar from '../components/Navbar';
