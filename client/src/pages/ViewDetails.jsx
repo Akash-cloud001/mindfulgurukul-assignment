@@ -6,8 +6,8 @@ import Navbar from '../components/Navbar';
 const ViewDetails = () => {
     const navigate = useNavigate();
     const {userId} = useParams();
-    const {userData, setUserData} = useContext(UserContext);
-    const user = userData?.filter(ele=>ele.id == userId);
+    const {userData, handleUserUpdate} = useContext(UserContext);
+    const user = userData?.filter(ele=>ele.id === userId);
     console.log(user);
 
     //! Removed the object with the matching id
@@ -25,19 +25,9 @@ const ViewDetails = () => {
             name,email,phone,id:userId
         });
 
-        setUserData(clonedUserData);
         e.preventDefault();
-        const res = await fetch('http://localhost:5000/api/user/update/',{
-            method:"POST",
-            headers:{
-                'x-access-token': localStorage.getItem('token'),
-                'Content-type':'application/json'
-            },
-            body: JSON.stringify({
-                data:clonedUserData
-            })
-        });
-        const data = await res.json();
+        const res = await handleUserUpdate(clonedUserData);
+        
         setName('');
         setEmail('');
         setPhone('');

@@ -8,8 +8,8 @@ import Navbar from '../components/Navbar';
 const Dashboard = () => {
     const navigate = useNavigate();
     const [addUser, setAddUser] = useState(false);
-    const {userData, setUserData} = useContext(UserContext);
-    console.log(userData)
+    const {userData} = useContext(UserContext);
+    
     const handleAddUser = ()=>{
         setAddUser(true);
     }
@@ -28,7 +28,7 @@ const Dashboard = () => {
         
         {!userData && <Error/>}
 
-        {userData && <div className='h-max w-full px-4 py-4 grid grid-cols-1 gap-y-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-col-4'>
+        {userData && <div className='relative h-max w-full px-4 py-4 grid grid-cols-1 gap-y-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-col-4 z-index'>
             {
                 userData?.map((user)=>{
                     return <UserInfo name = {user.name} email={user.email} phone={user.phone} key={user.id} id={user.id}/>
@@ -40,8 +40,6 @@ const Dashboard = () => {
             <UserForm 
                 addUser={addUser} 
                 setAddUser={setAddUser} 
-                userData={userData}
-                setUserData={setUserData}
             />
         }
         {!addUser && <button

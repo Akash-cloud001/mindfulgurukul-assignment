@@ -1,10 +1,12 @@
-import React,{useEffect, useState} from 'react'
+import React,{useEffect, useState,useContext} from 'react'
 import { v4 as uuidv4 } from 'uuid';
+import { UserContext } from '../contexts/UserContext';
 
-const UserForm = ({addUser, setAddUser, userData, setUserData}) => {
+const UserForm = ({addUser, setAddUser}) => {
     const [name,setName] = useState('');
     const [email, setEmail] = useState('');
-    const [phone, setPhone] = useState(Number);
+    const [phone, setPhone] = useState(null);
+    const {userData, setUserData} = useContext(UserContext);
 
     const handleCancel = (e)=>{
         e.preventDefault();
