@@ -8,6 +8,7 @@ const UserProvider = ({children})=>{
 
     async function handleUserUpdate(newDataSet){
         setUserData(newDataSet);
+        localStorage.setItem('user-data', JSON.stringify(newDataSet));
         const res = await fetch('http://localhost:5000/api/user/update/',{
             method:"POST",
             headers:{
@@ -22,7 +23,7 @@ const UserProvider = ({children})=>{
         return data;
     }
 
-
+// store the data in localStorage along with the token use this localStorage & use it to implement the the search functionality of the application
     useEffect(()=>{
         async function populateDashboard(){
             const req = await fetch("http://localhost:5000/api/data", {
@@ -32,8 +33,8 @@ const UserProvider = ({children})=>{
                 }
             })
             const data = await req.json();
-            console.log(data.data); //promise
             setUserData(data.data);
+            localStorage.setItem(`user-data`,JSON.stringify(data.data))
         }
         populateDashboard();
     },[])

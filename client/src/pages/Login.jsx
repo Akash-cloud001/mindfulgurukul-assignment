@@ -21,6 +21,7 @@ const Login = () => {
         const data = await res.json();
         if(data.user){
             localStorage.setItem('token', data.user);
+            
             alert('Login Successful');
             navigate(`/dashboard/${data.user}`);
         }else{
