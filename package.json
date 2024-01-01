@@ -9,7 +9,7 @@
     "install-client": "cd client && npm install",
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview",
+    "serve": "vite preview",
     "build-client": "cd client && npm run build",
     "start-client": "cd client && npm run dev"
   },
