@@ -71,7 +71,7 @@ const Signup = () => {
   async function registerUser(event){
     event.preventDefault();
 
-    const res = await fetch('http://localhost:5000/api/signup', {
+    const res = await fetch('https://mindful-gurukul-backend-toow.onrender.com/api/signup', {
       method:'POST',
       headers:{
         'Content-type':'application/json'

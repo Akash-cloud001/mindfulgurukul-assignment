@@ -9,7 +9,7 @@ const UserProvider = ({children})=>{
     async function handleUserUpdate(newDataSet){
         setUserData(newDataSet);
         localStorage.setItem('user-data', JSON.stringify(newDataSet));
-        const res = await fetch('http://localhost:5000/api/user/update/',{
+        const res = await fetch('https://mindful-gurukul-backend-toow.onrender.com/api/user/update/',{
             method:"POST",
             headers:{
                 'x-access-token': localStorage.getItem('token'),
@@ -26,7 +26,7 @@ const UserProvider = ({children})=>{
 // store the data in localStorage along with the token use this localStorage & use it to implement the the search functionality of the application
     useEffect(()=>{
         async function populateDashboard(){
-            const req = await fetch("http://localhost:5000/api/data", {
+            const req = await fetch("https://mindful-gurukul-backend-toow.onrender.com/api/data", {
                 method:'GET',
                 headers:{
                     'x-access-token': localStorage.getItem('token'),

@@ -28,7 +28,7 @@ const UserForm = ({addUser, setAddUser}) => {
         }else{
             setUserData(prev=>[...prev, newUser])
         }
-        const res = await fetch("http://localhost:5000/api/data",{
+        const res = await fetch("https://mindful-gurukul-backend-toow.onrender.com/api/data",{
                 method:"POST",
                 headers:{
                     'x-access-token':localStorage.getItem('token'),
