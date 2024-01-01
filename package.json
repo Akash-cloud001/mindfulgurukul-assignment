@@ -7,15 +7,11 @@
     "install-server": "cd server && npm install",
     "start-server": "cd server && npm run dev",
     "install-client": "cd client && npm install",
-    "dev": "vite && npm-run-all --parallel dev:*",
-    "build": "vite build && npm-run-all build:css build:parcel",
+    "dev": "vite",
+    "build": "vite build",
     "serve": "vite preview",
     "build-client": "cd client && npm run build",
-    "start-client": "cd client && npm run dev",
-    "dev:parcel": "parcel serve ./src/index.html",
-    "dev:css": "tailwindcss -o src/tailwind.css --watch",
-    "build:parcel": "parcel build ./src/index.html",
-    "build:css": "tailwindcss -o src/tailwind.css --minify"
+    "start-client": "cd client && npm run dev"
   },
   "repository": {
     "type": "git",
@@ -29,6 +25,8 @@
   },
   "homepage": "https://github.com/Akash-cloud001/mindfulgurukul-assignment#readme",
   "dependencies": {
-    "vite": "^5.0.10"
+    "vite": "^5.0.10",
+    "postcss": "^8.4.32",
+    "tailwindcss": "^3.4.0"
   }
 }
