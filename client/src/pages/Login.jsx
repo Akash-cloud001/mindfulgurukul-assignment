@@ -8,7 +8,7 @@ const Login = () => {
 
     async function handleUserLogin(event){
         event.preventDefault();
-        const res = await fetch("https://mindful-gurukul-backend-toow.onrender.com/signin", {
+        const res = await fetch("https://mindful-gurukul-backend-toow.onrender.com/api/signin", {
             method:'POST',
             headers:{
                 'Content-type':'application/json'
