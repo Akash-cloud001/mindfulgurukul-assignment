@@ -7,7 +7,7 @@ export default {
   //   // './src/components/**/*.{js,ts,jsx,tsx}',
   //   // './src/pages/**/*.{js,ts,jsx,tsx}',
   // ],
-  content: ["./dist/**/*.{html,css ,js}"],
+  content: ["./dist/**/*.{html,css ,js,jsx}"],
   theme: {
     extend: {
       height:{
