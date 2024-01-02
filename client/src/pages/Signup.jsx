@@ -89,7 +89,11 @@ const Signup = () => {
     })
     const data = await res.json();
     if(data.status === 'ok'){
+      alert('Account is Creating successfully')
       navigate('/');
+    }else{
+      alert('Please fill all the fields and try again');
+      navigate(0);
     }
   }
 
@@ -208,7 +212,7 @@ const Signup = () => {
             <label htmlFor="job-portal">Job Portal</label>
             <br />
 
-            <input type="checkbox" id='others' name='others' value='others' className='mr-2' onChange={e=>handleQuestion(e)} required/>
+            <input type="checkbox" id='others' name='others' value='others' className='mr-2' onChange={e=>handleQuestion(e)}/>
             <label htmlFor="others">Others</label>
             <br />
           </div>
